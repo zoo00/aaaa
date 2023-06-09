@@ -21,9 +21,7 @@ st.text(text)
 
 import ffmpeg
 import whisper
-from asrecognition import ASREngine
-st.header("Trascribe your Audio")
-filepath = st.text_input(label='please enter the path to the file')
+
 
 import speech_recognition as sr
 #import sys #-- 텍스트 저장시 사용
