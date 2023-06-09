@@ -8,7 +8,7 @@ import cv2
 import matplotlib.pyplot as plt
 
 
-path = 'C:/Users/wndud/Desktop/nobrand.jpg'
+path = './nobrand.jpg'
 
 img = Image.open(path)
 st.image(img, width = 200)
@@ -24,7 +24,7 @@ import whisper
 
 model = whisper.load_model("base")
 from IPython.display import Audio
-Audio("C:/Users/wndud/Downloads/aaa.mp3")
+Audio("./aaa.mp3")
 def transcribe(audio):
     
     # load audio and pad/trim it to fit 30 seconds
@@ -43,7 +43,7 @@ def transcribe(audio):
     result = whisper.decode(model, mel, options)
     return result.text
 
-easy_text = transcribe("C:/Users/wndud/Downloads/aaa.mp3")
+easy_text = transcribe("./aaa.mp3")
 st.text(easy_text)
 
 import bardapi
