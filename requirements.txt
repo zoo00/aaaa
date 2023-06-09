@@ -8,4 +8,4 @@ ffmpeg
 whisper
 bardapi
 SpeechRecognition
-PyAudio
+pyaudio
