@@ -21,30 +21,51 @@ st.text(text)
 
 import ffmpeg
 import whisper
+from asrecognition import ASREngine
+st.header("Trascribe your Audio")
+filepath = st.text_input(label='please enter the path to the file')
 
-model = whisper.load_model("base")
-from IPython.display import Audio
-Audio("./aaa.mp3")
-def transcribe(audio):
+import speech_recognition as sr
+#import sys #-- 텍스트 저장시 사용
+
+r = sr.Recognizer()
+with sr.Microphone() as source:
+    print("Say Something")
+    speech = r.listen(source)
+
+#sys.stdout = open('audio_output.txt', 'w') #-- 텍스트 저장시 사용
+
+try:
+    audio = r.recognize_google(speech, language="ko-KR")
+    print("Your speech thinks like\n " + audio)
+except sr.UnknownValueError:
+    print("Your speech can not understand")
+except sr.RequestError as e:
+    print("Request Error!; {0}".format(e))
     
-    # load audio and pad/trim it to fit 30 seconds
-    audio = whisper.load_audio(audio)
-    audio = whisper.pad_or_trim(audio)
+# model = whisper.load_model("base")
+# from IPython.display import Audio
+# Audio("./aaa.mp3")
+# def transcribe(audio):
+    
+#     # load audio and pad/trim it to fit 30 seconds
+#     audio = whisper.load_audio(audio)
+#     audio = whisper.pad_or_trim(audio)
 
-    # make log-Mel spectrogram and move to the same device as the model
-    mel = whisper.log_mel_spectrogram(audio).to(model.device)
+#     # make log-Mel spectrogram and move to the same device as the model
+#     mel = whisper.log_mel_spectrogram(audio).to(model.device)
 
-    # detect the spoken language
-    _, probs = model.detect_language(mel)
-    print(f"Detected language: {max(probs, key=probs.get)}")
+#     # detect the spoken language
+#     _, probs = model.detect_language(mel)
+#     print(f"Detected language: {max(probs, key=probs.get)}")
 
-    # decode the audio
-    options = whisper.DecodingOptions(fp16=False)
-    result = whisper.decode(model, mel, options)
-    return result.text
+#     # decode the audio
+#     options = whisper.DecodingOptions(fp16=False)
+#     result = whisper.decode(model, mel, options)
+#     return result.text
 
-easy_text = transcribe("./aaa.mp3")
-st.text(easy_text)
+# easy_text = transcribe("./aaa.mp3")
+# st.text(easy_text)
 
 import bardapi
 import os
