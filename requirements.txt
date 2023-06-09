@@ -7,3 +7,4 @@ openai
 ffmpeg
 whisper
 bardapi
+SpeechRecognition
