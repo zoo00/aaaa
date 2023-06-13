@@ -1,11 +1,40 @@
 import streamlit as st
-
-st.text("안녕 Streamlit!")
-
 import pytesseract
 from PIL import Image
 import cv2
 import matplotlib.pyplot as plt
+import easyocr as ocr
+import numpy as np
+
+def load_model(): 
+    reader = ocr.Reader(['en'],model_storage_directory='.')
+    return reader 
+
+reader = load_model() #load model
+
+if image is not None:
+
+    input_image = Image.open(image) #read image
+    st.image(input_image) #display image
+
+    with st.spinner("🤖 AI is at Work! "):
+        
+
+        result = reader.readtext(np.array(input_image))
+
+        result_text = [] #empty list for results
+
+
+        for text in result:
+            result_text.append(text[1])
+
+        st.write(result_text)
+    #st.success("Here you go!")
+    st.balloons()
+else:
+    st.write("Upload an Image")
+
+st.text("안녕 Streamlit!")
 
 
 path = './nobrand.jpg'
