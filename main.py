@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.text("hello Streamlit!")
+st.text("안녕 Streamlit!")
 
 import pytesseract
 from PIL import Image
